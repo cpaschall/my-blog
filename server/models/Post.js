@@ -5,14 +5,45 @@ const postSchema = new Schema(
     {
         title: {
             type: String,
-            require: true,
+            required: true,
             unique: true,
             trim: true
         },
+        postAuthor: {
+            type: String,
+            required: true,
+            trim: true,
+        },
         content: {
             type: String,
-            reuire: true,
+            reuired: true,
             unique: false,
-        }
-    }
-)
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now,
+        },
+        comments: [
+            {
+                commentText: {
+                    type: String,
+                    required: true,
+                    trim: true,
+                    maxlength: 250,
+                },
+                commentAuthor: {
+                    type: String,
+                    required: true,
+                },
+                createdAt: {
+                    type: Date,
+                    default: Date.now
+                },
+            },
+        ],
+    },
+);
+
+const Post = model('Post', postSchema);
+
+module.exports = Post;
